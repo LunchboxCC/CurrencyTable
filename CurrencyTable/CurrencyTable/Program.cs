@@ -1,7 +1,13 @@
 using CurrencyTable.Database;
+using CurrencyTable.Interfaces;
+using CurrencyTable.Repositories;
+using CurrencyTable.Services;
+using CurrencyTable.Validators;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
 
 ConfigureDb(builder);
 ConfigureServices(builder.Services);
@@ -17,6 +23,10 @@ app.Run();
 
 static void ConfigureServices(IServiceCollection services)
 {
+    services.AddScoped<ICurrencyValidator, CurrencyValidator>();
+    services.AddScoped<ICurrencyService, CurrencyService>();
+    services.AddScoped<ICurrenciesRepository, CurrenciesRepository>();
+
     //services.AddSingleton<IConfiguration>();
     //services.AddScoped<ApplicationContext>();
 }
