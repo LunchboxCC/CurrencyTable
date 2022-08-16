@@ -8,6 +8,6 @@ namespace CurrencyTable.Interfaces
         Currency GetCurrencyDetail(bool usedb, string shortName);
         List<Currency> FetchFromDatabase();
         Currency? FetchSingleCurrencyFromDatabase(string shortName);
-        List<Currency> FetchFromApi();
+        List<Currency> FetchFromApi(bool saveToDb);
     }
 }

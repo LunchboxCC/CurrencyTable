@@ -16,14 +16,7 @@ namespace CurrencyTable.Services
 
         public List<Currency> GetAllCurrencies(bool usedb)
         {
-            List<Currency> currencies;
-
-            if (usedb)
-                currencies = FetchFromDatabase();
-            else
-                currencies = FetchFromApi();
-
-            return currencies;
+            return FetchFromSource(usedb);
         }
 
         public Currency GetCurrencyDetail(bool usedb, string shortName)
@@ -31,9 +24,14 @@ namespace CurrencyTable.Services
             throw new NotImplementedException();
         }
 
-        public List<Currency> FetchFromApi()
+        public List<Currency> FetchFromApi(bool saveToDb)
         {
-            return _currencyDownloadService.GetCurrentCurrencyTable(saveToDb: true);
+            var currencies = _currencyDownloadService.GetCurrentCurrencyTable();
+
+            if (saveToDb)
+                _currenciesRepository.AddIfNotExists(currencies);
+
+            return currencies;
         }
 
         public List<Currency> FetchFromDatabase()
@@ -44,6 +42,14 @@ namespace CurrencyTable.Services
         public Currency? FetchSingleCurrencyFromDatabase(string shortName)
         {
             return _currenciesRepository.GetCurrencyByShortName(shortName);
+        }
+
+        public List<Currency> FetchFromSource(bool usedb)
+        {
+            if (usedb)
+                return FetchFromDatabase();
+            else
+                return FetchFromApi(true);
         }
     }
 }

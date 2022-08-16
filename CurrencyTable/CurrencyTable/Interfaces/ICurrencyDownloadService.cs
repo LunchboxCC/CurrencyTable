@@ -4,7 +4,7 @@ namespace CurrencyTable.Interfaces
 {
     public interface ICurrencyDownloadService
     {
-        List<Currency>? GetCurrentCurrencyTable(bool saveToDb);
+        List<Currency>? GetCurrentCurrencyTable();
         string DownloadCurrencyTable();
         List<Currency>? ParseData(string responseContent);
     }

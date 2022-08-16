@@ -13,7 +13,7 @@ namespace CurrencyTable.Services
             _httpClientService = httpClientService;
         }
 
-        public List<Currency>? GetCurrentCurrencyTable(bool saveToDb)
+        public List<Currency>? GetCurrentCurrencyTable()
         {
             string responseContent = DownloadCurrencyTable();
             var list = ParseData(responseContent);
