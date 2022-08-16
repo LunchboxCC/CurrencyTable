@@ -6,10 +6,24 @@ namespace CurrencyTable.Services
     public class CurrencyService : ICurrencyService
     {
         private readonly ICurrenciesRepository _currenciesRepository;
+        private readonly ICurrencyDownloadService _currencyDownloadService;
+
+        public CurrencyService(ICurrenciesRepository currenciesRepository, ICurrencyDownloadService currencyDownloadService)
+        {
+            _currenciesRepository = currenciesRepository;
+            _currencyDownloadService = currencyDownloadService;
+        }
 
         public List<Currency> GetAllCurrencies(bool usedb)
         {
-            throw new NotImplementedException();
+            List<Currency> currencies;
+
+            if (usedb)
+                currencies = FetchFromDatabase();
+            else
+                currencies = FetchFromApi();
+
+            return currencies;
         }
 
         public Currency GetCurrencyDetail(bool usedb, string shortName)
@@ -19,7 +33,7 @@ namespace CurrencyTable.Services
 
         public List<Currency> FetchFromApi()
         {
-            throw new NotImplementedException();
+            return _currencyDownloadService.GetCurrentCurrencyTable(saveToDb: true);
         }
 
         public List<Currency> FetchFromDatabase()

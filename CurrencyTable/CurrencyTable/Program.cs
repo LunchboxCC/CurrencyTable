@@ -1,4 +1,5 @@
 using CurrencyTable.Database;
+using CurrencyTable.HttpClients;
 using CurrencyTable.Interfaces;
 using CurrencyTable.Repositories;
 using CurrencyTable.Services;
@@ -26,7 +27,10 @@ static void ConfigureServices(IServiceCollection services)
     services.AddScoped<ICurrencyValidator, CurrencyValidator>();
     services.AddScoped<ICurrencyService, CurrencyService>();
     services.AddScoped<ICurrenciesRepository, CurrenciesRepository>();
+    services.AddScoped<ICurrencyDownloadService, CurrencyDownloadServiceErste>();
+    services.AddTransient<IHttpClientService, HttpClientService>();
 
+    services.AddHttpClient();
     //services.AddSingleton<IConfiguration>();
     //services.AddScoped<ApplicationContext>();
 }
