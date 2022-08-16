@@ -17,6 +17,7 @@ app.Run();
 
 static void ConfigureServices(IServiceCollection services)
 {
+    services.AddHttpClient();
     //services.AddSingleton<IConfiguration>();
     //services.AddScoped<ApplicationContext>();
 }
