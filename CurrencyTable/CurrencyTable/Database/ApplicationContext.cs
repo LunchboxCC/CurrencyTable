@@ -13,7 +13,12 @@ namespace CurrencyTable.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            var currency = modelBuilder.Entity<Currency>();
+            currency.Property(c => c.Name).HasColumnName("varchar(20)");
+            currency.Property(c => c.ShortName).HasColumnType("varchar(3)");
+            currency.Property(c => c.Country).HasColumnType("varchar(80)");
+            currency.Property(c => c.Amount).HasColumnType("smallint");
+            currency.Property(c => c.Version).HasColumnType("smallint");
         }
     }
 }
