@@ -1,6 +1,6 @@
 ﻿namespace CurrencyTable.Interfaces
 {
-    public interface ICurrencyValidator
+    public interface IParamValidator
     {
         bool ValidateShortName(string shortName);
     }

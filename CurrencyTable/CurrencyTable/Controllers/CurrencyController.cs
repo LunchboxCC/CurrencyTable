@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using CurrencyTable.Interfaces;
 using CurrencyTable.Models;
-using CurrencyTable.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 
 namespace CurrencyTable.Controllers
 {
@@ -12,11 +10,11 @@ namespace CurrencyTable.Controllers
     public class CurrencyController : ControllerBase
     {
         private readonly ICurrencyService _service;
-        private readonly ICurrencyValidator _validator;
+        private readonly IParamValidator _validator;
         private readonly IMapper _mapper;
 
         public CurrencyController(ICurrencyService service, 
-                                  ICurrencyValidator validator, 
+                                  IParamValidator validator, 
                                   IMapper mapper)
         {
             _service = service;
