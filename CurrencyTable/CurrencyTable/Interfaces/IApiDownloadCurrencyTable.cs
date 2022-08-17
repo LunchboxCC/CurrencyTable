@@ -2,7 +2,7 @@
 
 namespace CurrencyTable.Interfaces
 {
-    public interface IApiAcquireCurrencyTable
+    public interface IApiDownloadCurrencyTable
     {
         List<Currency> GetCurrentCurrencyTable();
     }

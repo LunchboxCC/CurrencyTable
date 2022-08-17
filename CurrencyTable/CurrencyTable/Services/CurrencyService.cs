@@ -6,9 +6,9 @@ namespace CurrencyTable.Services
     public class CurrencyService : ICurrencyService
     {
         private readonly ICurrenciesRepository _currenciesRepository;
-        private readonly IApiAcquireCurrencyTable _currencyDownloadService;
+        private readonly IApiDownloadCurrencyTable _currencyDownloadService;
 
-        public CurrencyService(ICurrenciesRepository currenciesRepository, IApiAcquireCurrencyTable currencyDownloadService)
+        public CurrencyService(ICurrenciesRepository currenciesRepository, IApiDownloadCurrencyTable currencyDownloadService)
         {
             _currenciesRepository = currenciesRepository;
             _currencyDownloadService = currencyDownloadService;

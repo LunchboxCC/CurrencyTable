@@ -1,4 +1,4 @@
-﻿namespace CurrencyTable.Models
+﻿namespace CurrencyTable.Models.DTOs
 {
     public class CurrencyDTO
     {

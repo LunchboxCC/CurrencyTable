@@ -1,4 +1,4 @@
-﻿using CurrencyTable.Models;
+﻿using CurrencyTable.Models.DTOs;
 using FluentValidation;
 
 namespace CurrencyTable.Validators

@@ -1,7 +1,7 @@
 using CurrencyTable.Database;
 using CurrencyTable.HttpClients;
 using CurrencyTable.Interfaces;
-using CurrencyTable.Models;
+using CurrencyTable.Models.DTOs;
 using CurrencyTable.Models.Entities;
 using CurrencyTable.Repositories;
 using CurrencyTable.Services;
@@ -38,7 +38,7 @@ static void ConfigureServices(IServiceCollection services)
 
     services.AddScoped<ICurrenciesRepository, CurrenciesRepository>();
     
-    services.AddScoped<IApiAcquireCurrencyTable, ApiAcquireCurrencyTableErste>();
+    services.AddScoped<IApiDownloadCurrencyTable, ApiDownloadCurrencyTableErste>();
     
     services.AddTransient<IHttpClientService, HttpClientService>();
 

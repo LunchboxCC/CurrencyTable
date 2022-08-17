@@ -6,13 +6,13 @@ using System.Text.Json;
 
 namespace CurrencyTable.Services
 {
-    public class ApiAcquireCurrencyTableErste : IApiAcquireCurrencyTable
+    public class ApiDownloadCurrencyTableErste : IApiDownloadCurrencyTable
     {
         private readonly IHttpClientService _httpClientService;
         private readonly ICurrenciesRepository _currenciesRepository;
         private readonly IValidator<Currency> _validator;
 
-        public ApiAcquireCurrencyTableErste(IHttpClientService httpClientService, 
+        public ApiDownloadCurrencyTableErste(IHttpClientService httpClientService, 
                                             ICurrenciesRepository currenciesRepository, 
                                             IValidator<Currency> validator)
         {
@@ -33,7 +33,7 @@ namespace CurrencyTable.Services
             }
             catch (Exception e)
             {
-                throw new ApiResponseException("Exchange rates could not be acquired due to error: " + e.Message);
+                throw new ApiResponseException("Exchange rates could not be provided due to error: " + e.Message);
             }
 
             SaveToDb(currencies);

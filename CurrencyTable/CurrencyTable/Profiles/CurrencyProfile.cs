@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CurrencyTable.Models;
+using CurrencyTable.Models.DTOs;
 using CurrencyTable.Models.Entities;
 
 namespace CurrencyTable.Profiles

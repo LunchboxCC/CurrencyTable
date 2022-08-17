@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CurrencyTable.Interfaces;
-using CurrencyTable.Models;
+using CurrencyTable.Models.DTOs;
 using CurrencyTable.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 

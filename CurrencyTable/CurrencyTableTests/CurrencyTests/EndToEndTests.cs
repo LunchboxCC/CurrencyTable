@@ -1,5 +1,4 @@
-﻿using CurrencyTable.Models;
-using CurrencyTable.Models.Entities;
+﻿using CurrencyTable.Models.Entities;
 using CurrencyTableTests.Helpers;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +10,7 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using CurrencyTable.Models.DTOs;
 
 namespace CurrencyTableTests.CurrencyTests
 {
