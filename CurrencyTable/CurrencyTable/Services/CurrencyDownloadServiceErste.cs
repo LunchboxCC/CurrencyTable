@@ -7,18 +7,23 @@ namespace CurrencyTable.Services
     public class CurrencyDownloadServiceErste : ICurrencyDownloadService
     {
         private readonly IHttpClientService _httpClientService;
+        private readonly ICurrenciesRepository _currenciesRepository;
 
-        public CurrencyDownloadServiceErste(IHttpClientService httpClientService)
+        public CurrencyDownloadServiceErste(IHttpClientService httpClientService, ICurrenciesRepository currenciesRepository)
         {
             _httpClientService = httpClientService;
+            _currenciesRepository = currenciesRepository;
         }
 
-        public List<Currency>? GetCurrentCurrencyTable()
+        public List<Currency> GetCurrentCurrencyTable()
         {
             string responseContent = DownloadCurrencyTable();
-            var list = ParseData(responseContent);
-
-            return list;
+            var currencies = ParseData(responseContent);
+            
+            if (currencies != null)
+                SaveToDb(currencies);
+                
+            return currencies;
         }
 
         public string DownloadCurrencyTable()
@@ -30,6 +35,11 @@ namespace CurrencyTable.Services
         public List<Currency>? ParseData(string responseContent)
         {
             return JsonSerializer.Deserialize<List<Currency>>(responseContent, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+        }
+
+        public void SaveToDb(List<Currency> currencies)
+        {
+            _currenciesRepository.AddIfNotExists(currencies);
         }
     }
 }

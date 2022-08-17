@@ -6,6 +6,6 @@ namespace CurrencyTable.Interfaces
     {
         List<Currency> GetAllCurrencies();
         Currency? GetCurrencyByShortName(string shortName);
-        bool AddIfNotExists(List<Currency> currencies);
+        int AddIfNotExists(List<Currency> currencies);
     }
 }

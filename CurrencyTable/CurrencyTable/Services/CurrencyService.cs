@@ -16,40 +16,18 @@ namespace CurrencyTable.Services
 
         public List<Currency> GetAllCurrencies(bool usedb)
         {
-            return FetchFromSource(usedb);
+            if (usedb)
+                return _currenciesRepository.GetAllCurrencies();
+            else
+                return _currencyDownloadService.GetCurrentCurrencyTable();
         }
 
-        public Currency GetCurrencyDetail(bool usedb, string shortName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Currency> FetchFromApi(bool saveToDb)
-        {
-            var currencies = _currencyDownloadService.GetCurrentCurrencyTable();
-
-            if (saveToDb)
-                _currenciesRepository.AddIfNotExists(currencies);
-
-            return currencies;
-        }
-
-        public List<Currency> FetchFromDatabase()
-        {
-            return _currenciesRepository.GetAllCurrencies();             
-        }
-
-        public Currency? FetchSingleCurrencyFromDatabase(string shortName)
-        {
-            return _currenciesRepository.GetCurrencyByShortName(shortName);
-        }
-
-        public List<Currency> FetchFromSource(bool usedb)
+        public Currency? GetSingleCurrencyByShortName(bool usedb, string shortName)
         {
             if (usedb)
-                return FetchFromDatabase();
+                return _currenciesRepository.GetCurrencyByShortName(shortName);
             else
-                return FetchFromApi(true);
+                return _currencyDownloadService.GetCurrentCurrencyTable().FirstOrDefault(c => c.ShortName.Equals(shortName));
         }
     }
 }

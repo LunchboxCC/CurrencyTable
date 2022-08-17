@@ -30,9 +30,9 @@ namespace CurrencyTable.Controllers
             if (!_validator.ValidateShortName(shortName))
                 return BadRequest("Invalid currency short name");
 
-            var currency = _service.GetCurrencyDetail(usedb, shortName);
+            var currency = _service.GetSingleCurrencyByShortName(usedb, shortName);
 
-            return currency != null ? Ok(currency) : BadRequest("No currency of this name found");
+            return currency != null ? Ok(currency) : NotFound("No such currency found");
         }
     }
 }
