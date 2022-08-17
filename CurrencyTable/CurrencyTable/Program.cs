@@ -1,6 +1,7 @@
 using CurrencyTable.Database;
 using CurrencyTable.HttpClients;
 using CurrencyTable.Interfaces;
+using CurrencyTable.Models;
 using CurrencyTable.Models.Entities;
 using CurrencyTable.Repositories;
 using CurrencyTable.Services;
@@ -43,6 +44,7 @@ static void ConfigureServices(IServiceCollection services)
 
     services.AddScoped<IParamValidator, ParamValidator>();
     services.AddScoped<IValidator<Currency>, CurrencyValidator>();
+    services.AddScoped<IValidator<CurrencyDTO>, CurrencyDTOValidator>();
 
     services.AddHttpClient();
 }
@@ -74,3 +76,5 @@ static void ConfigureSwagger(WebApplicationBuilder builder)
     }
     );
 }
+
+public partial class Program { }
