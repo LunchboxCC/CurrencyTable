@@ -1,5 +1,9 @@
-﻿using CurrencyTable.Interfaces;
+﻿using AutoMapper;
+using CurrencyTable.Interfaces;
+using CurrencyTable.Models;
+using CurrencyTable.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace CurrencyTable.Controllers
 {
@@ -9,11 +13,15 @@ namespace CurrencyTable.Controllers
     {
         private readonly ICurrencyService _service;
         private readonly ICurrencyValidator _validator;
+        private readonly IMapper _mapper;
 
-        public CurrencyController(ICurrencyService service, ICurrencyValidator validator)
+        public CurrencyController(ICurrencyService service, 
+                                  ICurrencyValidator validator, 
+                                  IMapper mapper)
         {
             _service = service;
             _validator = validator;
+            _mapper = mapper;
         }
 
         [HttpGet("")]
@@ -21,7 +29,7 @@ namespace CurrencyTable.Controllers
         {
             var currencies = _service.GetAllCurrencies(usedb);
 
-            return Ok(currencies);
+            return Ok(_mapper.Map<List<CurrencyDTO>>(currencies));
         }
 
         [HttpGet("{shortName}")]
@@ -31,8 +39,10 @@ namespace CurrencyTable.Controllers
                 return BadRequest("Invalid currency short name");
 
             var currency = _service.GetSingleCurrencyByShortName(usedb, shortName);
+            if (currency == null)
+                return NotFound("No such currency found");
 
-            return currency != null ? Ok(currency) : NotFound("No such currency found");
+            return Ok(_mapper.Map<CurrencyDTO>(currency));
         }
     }
 }

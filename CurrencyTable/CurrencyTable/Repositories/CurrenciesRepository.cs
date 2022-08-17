@@ -25,7 +25,7 @@ namespace CurrencyTable.Repositories
 
         public int AddIfNotExists(List<Currency> currencies)
         {
-            var list = _context.Currencies.OrderByDescending(c => c.ValidFrom).GroupBy(c => c.ShortName).Select(g => g.First()).ToList();
+            var list = _context.Currencies.GroupBy(c => c.ShortName).Select(c => c.OrderByDescending(c => c.ValidFrom).First()).ToList();
 
             if (list.Count == 0)
                 _context.AddRange(currencies);

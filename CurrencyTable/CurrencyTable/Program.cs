@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 ConfigureDb(builder);
+ConfigureAutoMapper(builder.Services);
 ConfigureServices(builder.Services);
 
 var app = builder.Build();
@@ -39,4 +40,9 @@ static void ConfigureDb(WebApplicationBuilder builder)
 {
     var connectionString = builder.Configuration.GetConnectionString("DevelopmentConnection");
     builder.Services.AddDbContext<ApplicationContext>(b => b.UseSqlServer(connectionString));
+}
+
+static void ConfigureAutoMapper(IServiceCollection services)
+{
+    services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 }

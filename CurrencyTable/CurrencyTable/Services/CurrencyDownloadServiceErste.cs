@@ -23,7 +23,7 @@ namespace CurrencyTable.Services
             if (currencies != null)
                 SaveToDb(currencies);
                 
-            return currencies;
+            return currencies ?? new List<Currency>();
         }
 
         public string DownloadCurrencyTable()
