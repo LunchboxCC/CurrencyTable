@@ -5,7 +5,7 @@ namespace CurrencyTableTests
 {
     public class CurrencyTableDownloadTests
     {
-        private readonly CurrencyDownloadServiceErste _service;
+        private readonly ApiAcquireCurrencyTableErste _service;
 
         [Fact]
         public void CurrencyDownloadSuccessfullyFetchesCurrencyTable()

@@ -20,7 +20,7 @@ namespace CurrencyTable.Repositories
 
         public Currency? GetCurrencyByShortName(string shortName)
         {
-            return _context.Currencies.Where(c => c.ShortName.Equals(shortName)).FirstOrDefault();
+            return _context.Currencies.Where(c => c.ShortName.Equals(shortName.ToUpper())).FirstOrDefault();
         }
 
         public int AddIfNotExists(List<Currency> currencies)

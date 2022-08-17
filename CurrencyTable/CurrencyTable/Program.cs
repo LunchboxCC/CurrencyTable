@@ -7,6 +7,8 @@ using CurrencyTable.Services;
 using CurrencyTable.Validators;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +17,12 @@ builder.Services.AddControllers();
 ConfigureDb(builder);
 ConfigureAutoMapper(builder.Services);
 ConfigureServices(builder.Services);
+ConfigureSwagger(builder);
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpLogging();
 app.UseRouting();
@@ -31,7 +37,7 @@ static void ConfigureServices(IServiceCollection services)
 
     services.AddScoped<ICurrenciesRepository, CurrenciesRepository>();
     
-    services.AddScoped<ICurrencyDownloadService, CurrencyDownloadServiceErste>();
+    services.AddScoped<IApiAcquireCurrencyTable, ApiAcquireCurrencyTableErste>();
     
     services.AddTransient<IHttpClientService, HttpClientService>();
 
@@ -50,4 +56,21 @@ static void ConfigureDb(WebApplicationBuilder builder)
 static void ConfigureAutoMapper(IServiceCollection services)
 {
     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+}
+
+static void ConfigureSwagger(WebApplicationBuilder builder)
+{
+    builder.Services.AddSwaggerGen(options =>
+    {
+        options.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Version = "v1",
+            Title = "Currency tables",
+            Description = "Interview homework"
+        });
+
+        var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+    }
+    );
 }
