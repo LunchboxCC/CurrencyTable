@@ -36,6 +36,7 @@ namespace CurrencyTable.Controllers
         /// <param name="usedb">If currencies should be acquired from DB or by API request.</param>
         /// <returns>Collection of all currencies acquired.</returns>
         /// <response code="200">Returns all found currencies.</response>
+        /// <response code="204">Returns when there are no currencies in DB/API response.</response>
         [HttpGet("")]
         [ProducesResponseType(typeof(List<Currency>), StatusCodes.Status200OK)]
         [Produces("application/json")]
