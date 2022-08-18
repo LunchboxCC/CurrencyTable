@@ -1,3 +1,4 @@
+using CurrencyTable.ApiServices;
 using CurrencyTable.Database;
 using CurrencyTable.HttpClients;
 using CurrencyTable.Interfaces;

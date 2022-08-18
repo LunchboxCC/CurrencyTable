@@ -1,10 +1,6 @@
-﻿using CurrencyTable.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using CurrencyTable.Models.DTOs;
+using CurrencyTable.Models.Entities;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace CurrencyTableTests.Helpers
 {
@@ -33,6 +29,16 @@ namespace CurrencyTableTests.Helpers
             };
 
             return JsonSerializer.Deserialize<List<Currency>>(GetApiResponseString(), options);
+        }
+
+        public static List<CurrencyDTO> GetListOfCurrenciesDTO()
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+
+            return JsonSerializer.Deserialize<List<CurrencyDTO>>(GetApiResponseString(), options);
         }
     }
 }

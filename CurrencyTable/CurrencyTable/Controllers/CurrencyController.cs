@@ -63,7 +63,7 @@ namespace CurrencyTable.Controllers
         /// <response code="400">Returns a an error message if shortname parameter doesn't adhere to requirements.</response>
         /// <response code="404">Returns a an error message when no currency was found based on shortname parameter.</response>
         [HttpGet("{shortname}")]
-        public IActionResult GetSingleCurrencyDetail(bool usedb, string shortname)
+        public IActionResult GetSingleCurrency(bool usedb, string shortname)
         {
             if (!_validator.ValidateShortName(shortname))
                 return BadRequest("Invalid shortname parameter value");

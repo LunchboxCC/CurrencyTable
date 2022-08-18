@@ -2,9 +2,11 @@
 using CurrencyTable.Interfaces;
 using CurrencyTable.Models.Entities;
 using FluentValidation;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Text.Json;
 
-namespace CurrencyTable.Services
+namespace CurrencyTable.ApiServices
 {
     public class ApiDownloadCurrencyTableErste : IApiDownloadCurrencyTable
     {
@@ -12,8 +14,8 @@ namespace CurrencyTable.Services
         private readonly ICurrenciesRepository _currenciesRepository;
         private readonly IValidator<Currency> _validator;
 
-        public ApiDownloadCurrencyTableErste(IHttpClientService httpClientService, 
-                                            ICurrenciesRepository currenciesRepository, 
+        public ApiDownloadCurrencyTableErste(IHttpClientService httpClientService,
+                                            ICurrenciesRepository currenciesRepository,
                                             IValidator<Currency> validator)
         {
             _httpClientService = httpClientService;
@@ -37,24 +39,19 @@ namespace CurrencyTable.Services
             }
 
             SaveToDb(currencies);
-                
+
             return currencies;
         }
 
         private string DownloadCurrencyTable()
         {
-            string uri = "https://webapi.developers.erstegroup.com/api/csas/public/sandbox/v2/rates/exchangerates?web-api-key=c52a0682-4806-4903-828f-6cc66508329e"; 
-            return _httpClientService.RequestGet(uri).Result;        
+            string uri = "https://webapi.developers.erstegroup.com/api/csas/public/sandbox/v2/rates/exchangerates?web-api-key=c52a0682-4806-4903-828f-6cc66508329e";
+            return _httpClientService.RequestGet(uri).Result;
         }
 
         private List<Currency>? ParseData(string responseContent)
         {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-
-            return JsonSerializer.Deserialize<List<Currency>>(responseContent, options);
+            return JsonConvert.DeserializeObject<List<Currency>>(responseContent);
         }
 
         private void ValidateData(List<Currency> currencies)

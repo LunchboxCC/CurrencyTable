@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace CurrencyTableTests.CurrencyTests
 {
-    public class ApiDownloadIntegrationTests
+    public class ApiDownloadTests
     {
         private IApiDownloadCurrencyTable _api;
 
