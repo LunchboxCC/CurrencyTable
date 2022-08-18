@@ -1,22 +1,15 @@
-﻿using CurrencyTable.Interfaces;
-using CurrencyTable.Models.Entities;
-using CurrencyTable.Services;
+﻿using CurrencyTable.ApiServices;
+using CurrencyTable.Interfaces;
 using CurrencyTable.Validators;
 using CurrencyTableTests.Helpers;
-using FluentValidation;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace CurrencyTableTests.CurrencyTests
 {
     public class ApiDownloadTests
     {
-        private IApiDownloadCurrencyTable _api;
+        private IApiDownloadCurrencyTable? _api;
 
         [Fact]
         public void ApiDownloadParsesContentAndReturnsListOfCurrencies()
@@ -35,7 +28,7 @@ namespace CurrencyTableTests.CurrencyTests
             var actualCurrencies = _api.GetCurrentCurrencyTable();
 
             Assert.Equal(expectedCount, actualCurrencies.Count);
-            Assert.Equal(JsonSerializer.Serialize(expectedCurrencies), JsonSerializer.Serialize(actualCurrencies));
+            Assert.Equal(JsonConvert.SerializeObject(expectedCurrencies), JsonConvert.SerializeObject(actualCurrencies));
         }
     }
 }
