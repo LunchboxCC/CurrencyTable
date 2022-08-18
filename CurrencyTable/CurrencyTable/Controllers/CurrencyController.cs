@@ -43,7 +43,7 @@ namespace CurrencyTable.Controllers
         {
             var currencies = _service.GetAllCurrencies(usedb);
 
-            return Ok(_mapper.Map<List<CurrencyDTO>>(currencies));
+            return currencies.Count > 0 ? Ok(_mapper.Map<List<CurrencyDTO>>(currencies)) : NoContent();
         }
 
         /// <summary>
