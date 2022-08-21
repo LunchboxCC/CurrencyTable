@@ -23,6 +23,8 @@ ConfigureSwagger(builder);
 
 var app = builder.Build();
 
+CreateDatabase(app);
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -54,6 +56,15 @@ static void ConfigureDb(WebApplicationBuilder builder)
 {
     var connectionString = builder.Configuration.GetConnectionString("DevelopmentConnection");
     builder.Services.AddDbContext<ApplicationContext>(b => b.UseSqlServer(connectionString));
+}
+
+static void CreateDatabase(WebApplication app)
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+        context.Database.Migrate();
+    }
 }
 
 static void ConfigureAutoMapper(IServiceCollection services)
